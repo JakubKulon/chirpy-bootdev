@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgres:17
+    restart: always
+    environment:
+      POSTGRES_USER: chirpy
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: chirpy
+    ports:
+      - "5432:5432"
+    volumes:
+      - chirpy_data:/var/lib/postgresql/data
+
+volumes:
+  chirpy_data:
