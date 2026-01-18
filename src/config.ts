@@ -12,16 +12,17 @@ function envOrThrow(key: string) {
     if (!process.env[key]) {
         throw new Error(`Key: ${key} is missing in .env`)
     }
-    return key
+    return process.env[key]
 }
 
 export const config: APIConfig & { db: DBConfig } = {
     fileserverHits: 0,
+    platform: envOrThrow('PLATFORM'),
     db: {
         migrationConfig: {
             migrationsFolder: migrationConfig.migrationsFolder
         },
-        url: envOrThrow('DB_URL')
+        url: envOrThrow('DB_URL'),
     }
 }
 

@@ -3,6 +3,7 @@ import { NextFunction, Request, Response } from "express";
 
 export type APIConfig = {
   fileserverHits: number;
+  platform: "DEV" | "PROD" | (string & {});
 };
 
 export type DBConfig = {

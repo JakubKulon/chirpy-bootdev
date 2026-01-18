@@ -8,8 +8,8 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "dev": "tsx watch src/index.ts",
-    "generate": "npx dirzzle-kit generate",
-    "migrate": "npm drizzle-kit migrate"
+    "generate": "npx drizzle-kit generate",
+    "migrate": "npx drizzle-kit migrate"
   },
   "keywords": [],
   "author": "",
