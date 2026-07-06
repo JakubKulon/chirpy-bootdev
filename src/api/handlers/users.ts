@@ -1,14 +1,16 @@
 import { Request, Response } from "express";
 import { BadRequest } from "../utils/errors";
 import { createUser } from "src/db/queries/users";
-import { enableCompileCache } from "node:module";
 import { respondWithJSON } from "../utils/json";
+import { UserResponse } from "../types";
+import { hashPassword } from "../auth";
 
 type ExpectedBody = {
-    email: string
+    email: string,
+    password: string
 }
 
-export const handlerCreateUser = async (req: Request, res: Response) => {
+export const handlerCreateUser = async (req: Request, res: Response<ExpectedBody>) => {
     if (!req.body) {
         throw new BadRequest('Body required')
     }
@@ -17,10 +19,20 @@ export const handlerCreateUser = async (req: Request, res: Response) => {
         throw new BadRequest('Email must be included in body')
     }
 
+    if (!req.body.password) {
+        throw new BadRequest('Password must be included in body')
+    }
+
     let parsedBody: ExpectedBody = req.body
 
-    const createdUser = await createUser({ email: parsedBody.email })
+    const createdUser = await createUser({ email: parsedBody.email, hashed_password: await hashPassword(parsedBody.password) })
 
-    respondWithJSON(res, 201, createdUser)
+    respondWithJSON(res, 201, {
+        email: createdUser.email,
+        id: createdUser.id,
+        createdAt: createdUser.createdAt,
+        updatedAt: createdUser.updatedAt
+
+    } satisfies UserResponse)
 
 }

@@ -18,6 +18,7 @@ function envOrThrow(key: string) {
 export const config: APIConfig & { db: DBConfig } = {
     fileserverHits: 0,
     platform: envOrThrow('PLATFORM'),
+    jwtSecret: envOrThrow('JWT_SECRET'),
     db: {
         migrationConfig: {
             migrationsFolder: migrationConfig.migrationsFolder
