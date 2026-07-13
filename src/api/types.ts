@@ -18,6 +18,7 @@ export type Middleware = (req: Request, res: Response, next: NextFunction) => vo
 
 export type UserResponse = Omit<NewUser, "hashed_password"> & {
   token: string
+  refreshToken: string
 }
 
 

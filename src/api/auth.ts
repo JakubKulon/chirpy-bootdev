@@ -2,6 +2,7 @@ import argon2 from 'argon2';
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { Unauthorized } from './utils/errors';
 import { Request } from "express";
+import crypto from 'crypto';
 
 
 export function hashPassword(text: string): Promise<string> {
@@ -59,4 +60,8 @@ export function getBearerToken(req: Request): string {
         throw new Unauthorized('Invalid Authorization header')
     }
     return token
+}
+
+export function makeRefreshToken(): string {
+    return crypto.randomBytes(32).toString('hex')
 }

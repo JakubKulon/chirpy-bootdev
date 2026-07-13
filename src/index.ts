@@ -14,6 +14,7 @@ import { handlerCreateChirp } from "./api/handlers/createChirp";
 import { handlerGetChirps } from "./api/handlers/getChirps";
 import { handlerGetChirpById } from "./api/handlers/getChirp";
 import { handlerLogin } from "./api/handlers/login";
+import { handlerRefreshToken } from "./api/handlers/refreshToken";
 
 // const migrationClient = postgres(config.db.url, { max: 1 });
 // await migrate(drizzle(migrationClient), config.db.migrationConfig);
@@ -37,6 +38,7 @@ app.get('/api/chirps/:chirpID', handlerGetChirpById)
 app.post('/api/users', handlerCreateUser)
 
 app.post('/api/login', handlerLogin)
+app.post('/api/refresh', handlerRefreshToken)
 
 app.use(errorHandler)
 
