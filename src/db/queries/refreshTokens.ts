@@ -29,3 +29,13 @@ export const getUserFromRefreshToken = async (token: string) => {
     }
     return result.user_id
 }
+
+export const revokeRefreshToken = async (token: string) => {
+    const [result] = await db.update(refreshTokens).set({
+        revoked_at: new Date(), updated_at: new Date()
+    }).where(eq(refreshTokens.token, token)).returning()
+    if(!result) {
+        throw new Unauthorized('Refresh token not found')
+    }
+    return result
+}

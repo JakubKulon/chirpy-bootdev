@@ -5,19 +5,13 @@ import { handlerResetHits } from "./api/handlers/resetHits";
 import { middlewareLogResponse } from "./api/middlewares/middlewareLogResponse";
 import { middlewareMetricsInc } from "./api/middlewares/middlewareMetricsInc";
 import { errorHandler } from "./api/handlers/errorHandler";
-import postgres from "postgres";
-import { migrate } from "drizzle-orm/postgres-js/migrator";
-import { drizzle } from "drizzle-orm/postgres-js";
-import { config } from "./config";
 import { handlerCreateUser } from "./api/handlers/users";
 import { handlerCreateChirp } from "./api/handlers/createChirp";
 import { handlerGetChirps } from "./api/handlers/getChirps";
 import { handlerGetChirpById } from "./api/handlers/getChirp";
 import { handlerLogin } from "./api/handlers/login";
 import { handlerRefreshToken } from "./api/handlers/refreshToken";
-
-// const migrationClient = postgres(config.db.url, { max: 1 });
-// await migrate(drizzle(migrationClient), config.db.migrationConfig);
+import { handlerRevokeToken } from "./api/handlers/revokeToken";
 
 const app = express();
 const PORT = 8080;
@@ -39,6 +33,7 @@ app.post('/api/users', handlerCreateUser)
 
 app.post('/api/login', handlerLogin)
 app.post('/api/refresh', handlerRefreshToken)
+app.post('/api/revoke', handlerRevokeToken)
 
 app.use(errorHandler)
 
